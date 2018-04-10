@@ -63,15 +63,24 @@ public abstract class TestSolutionBase {
         try {
 
             mainMethod = theClass.getMethod("main", String[].class);
-
             mainMethod.invoke(null, (Object) params);
 
         } catch (NoSuchMethodException e) {
             Assert.fail("No Main method found", e);
 
-        } catch (java.lang.IllegalAccessException
-               | java.lang.reflect.InvocationTargetException e) {
+        } catch (java.lang.IllegalAccessException e) {
             Assert.fail("poop reflect", e);
+
+        } catch (java.lang.reflect.InvocationTargetException e) {
+
+            if (e.getCause() instanceof RuntimeException) {
+                //re-throw any inner runtime exception so we can use
+                //expectedExceptions on our tests
+                throw (RuntimeException) e.getCause();
+
+            } else {
+                Assert.fail("poop reflect", e);
+            }
         }
     }
 
