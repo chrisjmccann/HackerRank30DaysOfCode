@@ -14,6 +14,10 @@ import static org.testng.Assert.assertEquals;
 
 public class TestDay04 {
 
+    /*  This class tests against the solution as HackerRank's tests do
+        (against the main() method, which we've moved into solve() )
+     */
+
     private final ByteArrayOutputStream stdOutContent = new ByteArrayOutputStream();
     private final PrintStream printStream = new PrintStream(stdOutContent);
 
